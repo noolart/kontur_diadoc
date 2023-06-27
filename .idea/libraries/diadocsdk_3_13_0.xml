@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="diadocsdk-3.13.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/diadocsdk-3.13.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
