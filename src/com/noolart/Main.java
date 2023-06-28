@@ -48,13 +48,15 @@ public class Main {
         rns = new ArrayList<>();
 
 
+
+
+
         Thread run = new Thread(() -> {
             while (true) {
                 try {
 
-                    System.out.println("1");
-
                     ResultSet rs = statement.executeQuery("select XMLDOC, rn from aa_t_diadoc_out_queue where status is null or status = 0");
+                    //ResultSet rs = statement.executeQuery("select XMLDOC, rn from aa_t_diadoc_out_queue");
                     while (rs.next()) {
                         documents.add((new BufferedReader(rs.getClob(1).getCharacterStream())).readLine());
                         rns.add(rs.getBigDecimal(2).toString());
@@ -73,6 +75,8 @@ public class Main {
         });
 
         run.start();
+
+
     }
 
 
@@ -112,11 +116,12 @@ public class Main {
         try {
 
             DiadocMessage_GetApiProtos.Message response = api.getMessageClient().postMessage(messageBuilder.build());
-            System.out.println(response);
+            //System.out.println(response);
             statement.executeUpdate ("UPDATE aa_t_diadoc_out_queue  set result='" + "sent" + "', status=1 where rn=" + rn);
         }
         catch (Exception e) {
-            statement.executeUpdate ("UPDATE aa_t_diadoc_out_queue  set result='" + "error" + "', status=-1 where rn=" + rn);
+            //System.out.println("declare str varchar2(32767); begin str :='" + e.toString().replace("'", "\"") + "';  UPDATE aa_t_diadoc_out_queue  set result=str, status=-1 where rn=" + rn +"; end;");
+            statement.executeUpdate ("declare str varchar2(32767); begin str :='" + e.toString().replace("'", "") + "';  UPDATE aa_t_diadoc_out_queue  set result=str, status=-1 where rn=" + rn +"; end;");
 
         }
     }
