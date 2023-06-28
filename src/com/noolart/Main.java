@@ -23,7 +23,7 @@ public class Main {
 
     private static DiadocApi api;
     static final String DefaultApiUrl = "https://diadoc-api.kontur.ru/";
-    static final String DefaultClientId = "api-79b1444c-ef58-46c8-a790-d9b35894a1a9";
+    static final String DefaultClientId = "ключ";
     static String boxId;
     static Statement statement;
     static ArrayList<String> documents,rns;
@@ -35,12 +35,12 @@ public class Main {
         Class.forName("oracle.jdbc.driver.OracleDriver");
 
         Connection conn = DriverManager.getConnection
-                ("jdbc:oracle:thin:@195.206.56.14:1524:sbn", "chmonya", "TSUwNLdhBbhnZ3Hu");
+                ("url бд", "пользователь бд", "пароль");
 
         statement = conn.createStatement();
 
         api = new DiadocApi(DefaultClientId, DefaultApiUrl);
-        api.getAuthClient().authenticate("alexart1106@gmail.com", "p31!lS7y");
+        api.getAuthClient().authenticate("логин диадок", "пароль");
         boxId = api.getOrganizationClient().getMyOrganizations().getOrganizations(0).getBoxes(0).getBoxId();
 
 
